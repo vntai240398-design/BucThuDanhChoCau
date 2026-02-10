@@ -146,7 +146,7 @@ button {
 
 <!-- 🎵 Nhạc nền (phát khi mở phong bì) -->
 <audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="forever-love.mp3" type="audio/mpeg">
 </audio>
 
 
@@ -219,7 +219,9 @@ function openLetter() {
     document.getElementById("letter").style.display = "block";
 
     // 🎵 Phát nhạc khi mở thư (iPhone cũng chạy)
-    document.getElementById("bgMusic").play();
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.5; // nhỏ nhẹ, rất hợp tỏ tình
+    music.play();
 
     typeWriter();
 }
@@ -246,4 +248,5 @@ setInterval(() => {
 
 </body>
 </html>
+
 
