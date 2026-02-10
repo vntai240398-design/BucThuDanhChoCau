@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bức Thư Gửi Cậu</title>
 
+<!-- Font viết tay cho câu mở đầu -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
 <style>
 body {
     margin: 0;
@@ -17,7 +20,6 @@ body {
     overflow-x: hidden;
 }
 
-/* Khung căn giữa */
 .wrapper {
     width: 100%;
     max-width: 900px;
@@ -77,8 +79,26 @@ h1 {
     font-size: 16px;
     line-height: 1.9;
     color: #5a2a2a;
-    white-space: normal; /* FIX QUAN TRỌNG */
+    white-space: normal;
     min-height: 260px;
+}
+
+/* Câu nổi bật */
+.highlight {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    font-weight: 600;
+    color: #e91e63;
+    text-align: center;
+    margin: 10px 0 22px;
+    animation: blink 2s infinite;
+}
+
+/* Nhấp nháy nhẹ */
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
 }
 
 .buttons {
@@ -113,11 +133,24 @@ button {
     animation: fadeIn 1s ease;
 }
 
-/* Tim bay */
+/* Tim bay nền */
 .heart {
     position: absolute;
     color: rgba(255,255,255,0.8);
     animation: float 6s infinite ease-in;
+}
+
+/* Tim rơi riêng cho câu mở đầu */
+.special-heart {
+    position: absolute;
+    font-size: 22px;
+    animation: fall 3s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-20px); opacity: 1; }
+    100% { transform: translateY(140px); opacity: 0; }
 }
 
 @keyframes float {
@@ -132,12 +165,8 @@ button {
 
 /* Mobile */
 @media (max-width: 767px) {
-    #text {
-        font-size: 15px;
-    }
-    .letter {
-        padding: 28px 22px;
-    }
+    #text { font-size: 15px; }
+    .letter { padding: 28px 22px; }
 }
 </style>
 </head>
@@ -177,7 +206,7 @@ button {
 
 <script>
 const message = `
-Tớ thích Cậu.
+[[Tớ thích Cậu.]]
 
 Cậu có một mái tóc và nụ cười rất đẹp,
 đó là điều khiến Tớ không thể quên
@@ -209,12 +238,36 @@ const textElement = document.getElementById("text");
 
 function typeWriter() {
     if (index < message.length) {
+
+        if (message.substring(index, index + 2) === "[[") {
+            const end = message.indexOf("]]", index);
+            const highlightText = message.substring(index + 2, end);
+
+            textElement.innerHTML += `<div class="highlight">${highlightText}</div>`;
+
+            // Tim rơi riêng
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement("div");
+                heart.className = "special-heart";
+                heart.innerHTML = "💗";
+                heart.style.left = Math.random() * 80 + 10 + "%";
+                heart.style.top = "0px";
+                textElement.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }
+
+            index = end + 2;
+            setTimeout(typeWriter, 900);
+            return;
+        }
+
         const char = message.charAt(index);
         if (char === "\n") {
             textElement.innerHTML += "<br><br>";
         } else {
             textElement.innerHTML += char;
         }
+
         index++;
         setTimeout(typeWriter, speed);
     }
@@ -234,7 +287,7 @@ function think() {
     alert("🤍 Không sao cả, Tớ sẽ đợi câu trả lời từ Cậu 🤍");
 }
 
-// Tim bay
+// Tim bay nền
 setInterval(() => {
     const heart = document.createElement("div");
     heart.className = "heart";
