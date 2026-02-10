@@ -17,7 +17,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Khung căn giữa cho PC */
+/* Khung căn giữa */
 .wrapper {
     width: 100%;
     max-width: 900px;
@@ -77,7 +77,7 @@ h1 {
     font-size: 16px;
     line-height: 1.9;
     color: #5a2a2a;
-    white-space: pre-wrap;
+    white-space: normal; /* FIX QUAN TRỌNG */
     min-height: 260px;
 }
 
@@ -130,7 +130,7 @@ button {
     to { opacity: 1; transform: scale(1); }
 }
 
-/* Mobile tối ưu */
+/* Mobile */
 @media (max-width: 767px) {
     #text {
         font-size: 15px;
@@ -209,7 +209,12 @@ const textElement = document.getElementById("text");
 
 function typeWriter() {
     if (index < message.length) {
-        textElement.innerHTML += message.charAt(index);
+        const char = message.charAt(index);
+        if (char === "\n") {
+            textElement.innerHTML += "<br><br>";
+        } else {
+            textElement.innerHTML += char;
+        }
         index++;
         setTimeout(typeWriter, speed);
     }
@@ -243,4 +248,3 @@ setInterval(() => {
 
 </body>
 </html>
-
