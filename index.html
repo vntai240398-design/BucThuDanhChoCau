@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bức Thư Gửi Cậu</title>
 
-<!-- Font viết tay cho câu mở đầu -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
@@ -17,18 +16,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-x: hidden;
 }
 
 .wrapper {
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     padding: 20px;
 }
 
 /* Phong bì */
 .envelope {
-    width: 100%;
     max-width: 360px;
     height: 220px;
     background: #ffb6c1;
@@ -40,7 +37,6 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    position: relative;
 }
 
 .envelope span {
@@ -49,75 +45,64 @@ body {
     font-weight: 600;
 }
 
-.envelope::before {
-    content: "💌";
-    position: absolute;
-    top: -30px;
-    font-size: 42px;
-}
-
-/* Bức thư */
+/* Thư */
 .letter {
     display: none;
     background: #ffe6ee;
-    width: 100%;
-    max-width: 680px;
+    max-width: 700px;
     margin: auto;
-    padding: 36px 30px;
-    border-radius: 22px;
+    padding: 40px;
+    border-radius: 24px;
     box-shadow: 0 30px 60px rgba(0,0,0,0.25);
-    animation: fadeIn 1.2s ease;
 }
 
 h1 {
     text-align: center;
     color: #e91e63;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 #text {
     font-size: 16px;
-    line-height: 1.9;
+    line-height: 2;
     color: #5a2a2a;
-    white-space: normal;
-    min-height: 260px;
+    word-break: keep-all;
 }
 
-/* Câu nổi bật */
+/* Câu mở đầu */
 .highlight {
     font-family: 'Dancing Script', cursive;
-    font-size: 28px;
-    font-weight: 600;
-    color: #e91e63;
+    font-size: 30px;
+    line-height: 1.4;
     text-align: center;
-    margin: 10px 0 22px;
+    color: #e91e63;
+    margin: 10px 0 26px;
     animation: blink 2s infinite;
 }
 
-/* Nhấp nháy nhẹ */
 @keyframes blink {
     0% { opacity: 1; }
-    50% { opacity: 0.6; }
+    50% { opacity: 0.65; }
     100% { opacity: 1; }
 }
 
 .buttons {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 30px;
 }
 
 button {
     padding: 12px 28px;
-    margin: 8px;
-    font-size: 16px;
     border-radius: 30px;
     border: none;
+    font-size: 16px;
+    margin: 8px;
     cursor: pointer;
 }
 
 .yes {
     background: #e91e63;
-    color: white;
+    color: #fff;
 }
 
 .think {
@@ -126,81 +111,42 @@ button {
 
 .reply {
     display: none;
+    margin-top: 25px;
     text-align: center;
-    margin-top: 20px;
-    color: #e91e63;
     font-size: 18px;
-    animation: fadeIn 1s ease;
-}
-
-/* Tim bay nền */
-.heart {
-    position: absolute;
-    color: rgba(255,255,255,0.8);
-    animation: float 6s infinite ease-in;
-}
-
-/* Tim rơi riêng cho câu mở đầu */
-.special-heart {
-    position: absolute;
-    font-size: 22px;
-    animation: fall 3s ease-out forwards;
-    pointer-events: none;
-}
-
-@keyframes fall {
-    0% { transform: translateY(-20px); opacity: 1; }
-    100% { transform: translateY(140px); opacity: 0; }
-}
-
-@keyframes float {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-100vh); opacity: 0; }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    color: #e91e63;
 }
 
 /* Mobile */
-@media (max-width: 767px) {
+@media (max-width: 600px) {
     #text { font-size: 15px; }
-    .letter { padding: 28px 22px; }
+    .highlight { font-size: 26px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Nhạc nền -->
-<audio autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-</audio>
-
 <div class="wrapper">
 
-    <!-- Phong bì -->
-    <div class="envelope" onclick="openLetter()">
-        <span>Bấm để mở bức thư 💗</span>
+<div class="envelope" onclick="openLetter()">
+    <span>Bấm để mở bức thư 💌</span>
+</div>
+
+<div class="letter" id="letter">
+    <h1>Bức Thư Gửi Cậu</h1>
+    <div id="text"></div>
+
+    <div class="buttons">
+        <button class="yes" onclick="accept()">💖 Đồng ý</button>
+        <button class="think" onclick="think()">🤍 Suy nghĩ thêm</button>
     </div>
 
-    <!-- Bức thư -->
-    <div class="letter" id="letter">
-        <h1>Bức Thư Gửi Cậu 💌</h1>
-        <div id="text"></div>
-
-        <div class="buttons">
-            <button class="yes" onclick="accept()">💖 Đồng ý</button>
-            <button class="think" onclick="think()">🤍 Suy nghĩ thêm</button>
-        </div>
-
-        <div class="reply" id="reply">
-            💍 Tớ hạnh phúc lắm…  
-            <br>Cảm ơn Cậu đã cho Tớ cơ hội 💗  
-            <br>Chúng ta bắt đầu nhé?
-        </div>
+    <div class="reply" id="reply">
+        💍 Tớ hạnh phúc lắm…<br>
+        Cảm ơn Cậu đã cho Tớ cơ hội 💗
     </div>
+</div>
 
 </div>
 
@@ -208,69 +154,42 @@ button {
 const message = `
 [[Tớ thích Cậu.]]
 
-Cậu có một mái tóc và nụ cười rất đẹp,
-đó là điều khiến Tớ không thể quên
-về hình ảnh của Cậu thời áo dài đi học.
+Cậu có một mái tóc và nụ cười rất đẹp, đó là điều khiến Tớ không thể quên về hình ảnh của Cậu thời áo dài đi học.
 
-Bây giờ, Cậu vẫn vậy.
-Cậu vẫn cười rất xinh,
-nhưng có lẽ cuộc sống đã khiến Cậu
-mạnh mẽ và kiên cường hơn,
-nhưng không đánh mất sự hồn nhiên
-và đáng yêu của Cậu.
+Bây giờ, Cậu vẫn vậy. Cậu vẫn cười rất xinh, nhưng có lẽ cuộc sống đã khiến Cậu mạnh mẽ và kiên cường hơn, nhưng không đánh mất sự hồn nhiên và đáng yêu của Cậu.
 
-Tớ thích nụ cười và tính cách của Cậu.
-Bản thân Tớ không tự tin về ngoại hình.
+Tớ thích nụ cười và tính cách của Cậu. Bản thân Tớ không tự tin về ngoại hình.
 
-Nhưng nếu có thể mang lại nụ cười cho Cậu mỗi ngày,
-bảo vệ, chia sẻ công việc,
-chia sẻ niềm vui và nỗi buồn cùng Cậu,
-luôn bên Cậu lúc Cậu cần,
-thì Tớ tự tin mình có thể làm được điều đó.
+Nhưng nếu có thể mang lại nụ cười cho Cậu mỗi ngày, bảo vệ, chia sẻ công việc, chia sẻ niềm vui và nỗi buồn cùng Cậu, luôn bên Cậu lúc Cậu cần, thì Tớ tự tin mình có thể làm được điều đó.
 
-Cậu cho Tớ cơ hội
-được làm quen Cậu nhé.
+Cậu cho Tớ cơ hội được làm quen Cậu nhé.
 `;
 
 let index = 0;
-const speed = 35;
-const textElement = document.getElementById("text");
+const speed = 30;
+const textEl = document.getElementById("text");
 
 function typeWriter() {
-    if (index < message.length) {
+    if (index >= message.length) return;
 
-        if (message.substring(index, index + 2) === "[[") {
-            const end = message.indexOf("]]", index);
-            const highlightText = message.substring(index + 2, end);
-
-            textElement.innerHTML += `<div class="highlight">${highlightText}</div>`;
-
-            // Tim rơi riêng
-            for (let i = 0; i < 12; i++) {
-                const heart = document.createElement("div");
-                heart.className = "special-heart";
-                heart.innerHTML = "💗";
-                heart.style.left = Math.random() * 80 + 10 + "%";
-                heart.style.top = "0px";
-                textElement.appendChild(heart);
-                setTimeout(() => heart.remove(), 3000);
-            }
-
-            index = end + 2;
-            setTimeout(typeWriter, 900);
-            return;
-        }
-
-        const char = message.charAt(index);
-        if (char === "\n") {
-            textElement.innerHTML += "<br><br>";
-        } else {
-            textElement.innerHTML += char;
-        }
-
-        index++;
-        setTimeout(typeWriter, speed);
+    if (message.slice(index, index + 2) === "[[") {
+        const end = message.indexOf("]]", index);
+        const content = message.slice(index + 2, end);
+        textEl.innerHTML += `<div class="highlight">${content}</div>`;
+        index = end + 2;
+        setTimeout(typeWriter, 700);
+        return;
     }
+
+    const char = message[index];
+    if (char === "\n") {
+        textEl.innerHTML += "<br><br>";
+    } else {
+        textEl.innerHTML += char;
+    }
+
+    index++;
+    setTimeout(typeWriter, speed);
 }
 
 function openLetter() {
@@ -284,19 +203,8 @@ function accept() {
 }
 
 function think() {
-    alert("🤍 Không sao cả, Tớ sẽ đợi câu trả lời từ Cậu 🤍");
+    alert("🤍 Tớ sẽ đợi câu trả lời từ Cậu 🤍");
 }
-
-// Tim bay nền
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = Math.random() * 20 + 14 + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 500);
 </script>
 
 </body>
