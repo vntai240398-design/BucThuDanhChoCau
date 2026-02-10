@@ -144,8 +144,8 @@ button {
 
 <body>
 
-<!-- Nhạc nền -->
-<audio autoplay loop>
+<!-- 🎵 Nhạc nền (phát khi mở phong bì) -->
+<audio id="bgMusic" loop>
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
 </audio>
 
@@ -216,6 +216,10 @@ function typeWriter() {
 function openLetter() {
     document.querySelector(".envelope").style.display = "none";
     document.getElementById("letter").style.display = "block";
+
+    // 🎵 Phát nhạc khi mở thư (iPhone cũng chạy)
+    document.getElementById("bgMusic").play();
+
     typeWriter();
 }
 
@@ -241,4 +245,3 @@ setInterval(() => {
 
 </body>
 </html>
-
